@@ -1,0 +1,60 @@
+                                  [MSTAR2RAS]
+                       (Version 2.0, 24 September 1998)
+
+Program Description:
+
+   This routine allows you to convert the magnitude portion of
+   MSTAR images to 8-bit Sunraster format for DISPLAY purposes.
+   It contains options to automatically enhance the output image,  
+   dump the Phoenix headerto an output file, and to operate in 
+   verbose or quiet modes. It automatically checks for and
+   byteswaps the big-endian MSTAR data when needed to support
+   PC display operations.
+
+
+Program Usage:
+
+     mstar2ras -i <MSTAR File> -o <SunRaster File> [-e] [-h] [-v]
+
+           Options: [-e]  = Auto-contrast enhance [Def: none]
+                    [-h]  = Dump Phoenix (ASCII) header [Def: none]
+                    [-v]  = Verbose mode [Def: Quiet]
+
+
+Description of Arguments:
+
+  REQUIRED:
+           <MSTAR File>     -- Input file in MSTAR format
+           <SunRaster File> -- Name of the output file
+
+  OPTIONAL:
+           [-e] = Auto-contrast enhance switch
+           [-h] = Dump Phoenix header switch
+           [-v] = Operate in verbose mode switch
+
+
+Files Necessary to Compile:
+
+     * Include : rasterfile.h   (Contains Sunraster file defs.)
+     * Source  : mstar2ras.c
+                 read_switch.c
+     * Make    : mstar2ras.mk (optional)
+
+
+Compiling and Linking Code:
+
+   You can compile mstar2ras either from the command line or by using the 
+   included makefile (note: .mk file).
+
+   a) Command line Method:
+
+        % gcc -c read_switch.c [enter]
+        % gcc -o mstar2ras mstar2ras.c read_switch.o -lm [enter]
+      
+      NOTE: You can use other C compilers. Edit .mk file as necessary.
+
+   b) Using the Makefile [mstar2ras.mk]:
+
+      Perform the following steps:
+
+        % make -f mstar2ras.mk         [Creates executable: mstar2ras]

@@ -1,0 +1,47 @@
+The following are Copyright acknowledgements for code or
+ideas used by mstar2ras.c:
+
+
+[read_switch.c]  A utility to extract arguments from input switches.
+                 It was part of a more general set of argument-
+                 reading utilities found in 'readswitch.c'.  This
+                 code was developed by Otto Milvang, U of Oslo,
+                 Norway, as part of the B-LAB X Interactive Tool
+                 Environment (XITE).
+
+
+
+________________________________________________________________
+
+        readswitch.c
+        readswitch.c,v 1.26 1995/11/29 11:06:42 svein Exp
+        Copyright 1990, Blab, UiO
+        Image processing lab, Department of Informatics
+        University of Oslo
+        E-mail: blab@ifi.uio.no
+________________________________________________________________
+  
+  Permission to use, copy, modify and distribute this software and its
+  documentation for any purpose and without fee is hereby granted, 
+
+  provided that this copyright notice appear in all copies and that 
+  both that copyright notice and this permission notice appear in supporting
+  documentation and that the name of B-lab, Department of Informatics or
+  University of Oslo not be used in advertising or publicity pertaining 
+  to distribution of the software without specific, written prior permission.
+
+  B-LAB DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL
+  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL B-LAB
+  BE LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+  WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION
+  OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN 
+  CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+ 
+----------------------------------------------------------------------------
+
+CheckByteOrder() -- This sub-function is based on code contained in the
+                    book: 
+
+                     Encyclopedia of Graphic File Formats
+                     Murray & Van Ryper, O'Reilly & Associates, Copyright 1994,
+                     pp. 114-115.

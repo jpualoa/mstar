@@ -1,0 +1,205 @@
+***************************************************************************
+*                             X V  V I E W E R S                          *
+***************************************************************************
+*                                   xv.txt                                *
+***************************************************************************
+*                                                                         *
+*        Author: John F. Querns, Veridian Inc., Veda Operations           *
+*          Date: 04 May 98                                                *
+*                                                                         *
+***************************************************************************
+* THIS SOFTWARE AND ANY ACCOMPANYING DOCUMENTATION IS RELEASED "AS IS."   *
+* THE U.S. GOVERNMENT MAKES NO WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,  *
+* CONCERNING THIS SOFTWARE AND ANY ACCOMPANYING DOCUMENTATION, INCLUDING, *
+* WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A  *
+* PARTICULAR PURPOSE. IN NO EVENT WILL THE U.S. GOVERNMENT BE LIABLE FOR  *
+* ANY DAMAGES, INCLUDING ANY LOST PROFITS, LOST SAVINGS OR OTHER          *
+* INCIDENTAL OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE, OR INABILITY*
+* TO USE, THIS SOFTWARE OR ANY ACCOMPANYING DOCUMENTATION, EVEN IF        *
+* INFORMED IN ADVANCE OF THE POSSIBILITY OF SUCH DAMAGES."                *
+***************************************************************************
+
+XV.TXT:
+------      
+This file contains information that you will need to know to integrate the
+MSTAR C routine, "xvmstar.c", into the main XV software package. It
+documents CHANGES that must be made to the XV source code to allow you to
+display MSTAR magnitude data.  The MSTAR import code contains only a
+READ module.
+ 
+INFORMATION ON XV:
+-----------------
+
+XV is an interactive image displayer for the X Window System  that was
+developed by John Bradley (formerly of U of Penn). The XV program displays 
+8-bit grayscale, 8-bit color-paletter, and 24-bit true color images in the
+GIF, JPEG, TIFF, PBM, PGM, PPM, X11 bitmap, Utah Raster Toolkit RLE, BMP,
+PCX, Sun Raster, PDS/VICAR, IRIS RGB, XPM, Targa, XWD, PM, and, possibly,
+PostScript formats on workstations and terminals running the X Window
+System, Version 11.
+
+The latest source code for XV can be downloaded from many places on the
+Internet.  Here's the Internet address for one such place: the Computer
+Vision Home page (Carnegie Mellon University):
+
+      http://www.cs.cmu.edu/~cil/vision.html
+
+Go to the site and then click on the SOFTWARE link. This will get you
+to the following page:
+
+      http://www.cs.cmu.edu/~cil/v-source.html
+
+Under "Display Tools", click on "XV".  This will link you to the 
+keepers and maintainers of the XV source code, the University of
+Pennsylvania:
+
+      ftp://ftp.cis.upenn.edu/pub/xv
+
+REMEMBER: XV is SHAREWARE for PERSONAL USE ONLY.  Commercial,
+          Government, and other institutions must register their
+          versions of the code and believe me, XV can be had for
+          a very reasonable price.
+
+
+INSTALLATION of MSTAR Code into XV: 
+---------------------------------- 
+ 
+The following XV files must be modified to successfully integrate
+the MSTAR C load source code into XV:
+
+         xv.c 
+         xv.h 
+         xvbrowse.c 
+         Imakefile, Makefile 
+
+
+*************
+* xvmstar.c *
+*************
+
+The source code file, "xvmstar.c" is a modification of one of
+the other file format routines.  It READS the 16-bit (for
+MSTAR fullscenes) or 32-bit (for MSTAR target chips) magnitude
+data, downsamples it to 8-bit, and stores it in the main XV
+image array.  The downsampling is linear and goes like this:
+
+   1) Find the max and min values in the MAG data
+   2) Range = max_inPix - min_inPix
+   3) Convert to 8-bit:
+
+        tmpval = (float) (inPix - min_inPix)
+                 -------------------------------- * 255.0
+                       (float)  Range
+
+        8bitPix = (unsigned char) (tmpval + 0.5)
+
+      The reason for adding "0.5" is that C rounds float
+      values downward when re-casting to integer.
+
+"xvmstar.c" contains ONLY a LOAD module (i.e. no WRITE module).
+This code will work on regular MSTAR files (i.e. Phoenix
+header+Native Header+Mag data+Phase data) and it will also work
+on MSTAR files that have only the Native (C4PL) header.
+
+
+************************************
+* Changes to Source Code: xv.c     *
+************************************
+
+1) Add to the variable declaration section of the sub-function
+   "ReadFileType()" the following definition:
+
+        byte *mptr=NULL;
+
+2) Go to the section of the code that checks for magic numbers.
+   It's in the sub-function, "ReadFileType()" and is around line 2550.
+   Add another case for MSTAR data:
+
+ 
+     else
+        {
+         /* First check for just C4PL MAGIC NUMBER */
+         if (magicno[0]==0x24 && magicno[1]==0x55)
+            {
+             rv = RFT_MSTAR;
+            } else
+                 {/* Check for Phoenix MAGIC number */
+                  mptr = (byte *) strstr(magicno, "Phoenix");
+                  if (mptr != (byte *) NULL)
+                     {
+                      rv = RFT_MSTAR;
+                     }
+                 }    
+        }
+
+3) Go to the subroutine: "ReadPicFile()"
+
+   Add another case to the switch on 'ftype'.
+
+ 
+    case RFT_MSTAR:   rv = LoadMSTAR (fname, pinfo);         break;
+ 
+
+******************************************
+* Changes to Source Code: xvbrowse.c     *
+******************************************
+
+1) Add the following define to the "Filetypes" definition at 
+   around line 90-98 of the code:  
+
+        #define BF_MSTAR  29
+
+2) Add the following line to the list of built-in icons:
+
+        #include "bits/br_mstar"
+
+   NOTE: You'll have to place the mstar icon in the appropriate
+         xv directory.
+
+3) Go to subroutine: loadThumbFile(), which is around line
+   2990. Add another case to the switch on 'filetype':
+
+   case RFT_MSTAR:    bf->ftype = BF_MSTAR;    break;
+
+4) Go to the code for generating an icon: genIcon() and
+   add a case to the switch for 'filetype' (around line
+   3574.
+
+   case RFT_MSTAR:    strcat(str,"MSTAR MAG file");        break;
+
+
+******************************************
+* Changes to Include File Code: xv.h     *
+******************************************
+
+1) Add a case for MSTAR to the section of the include file
+   dealing with return values from sub-function ReadFileType():
+
+     #define RFT_MSTAR    20
+
+2) After around line 1626-1627, add the following:
+
+  
+  /******************* XVMSTAR.C ************************/
+  int LoadMSTAR              PARM((char *, PICINFO *));
+
+
+******************************************
+* Changes to Imakefile, Makefile....     *
+******************************************
+
+"xvmstar.o" need to be added to the 
+OBJS tag in the Makefile.
+
+Make sure to add the xvmstar.c file to the xv directory
+**************************************************************
+
+That's all you should need. Just remake xv and you should
+be able to display the magnitude data for MSTAR fullscenes
+and target chip images. If you have any questions, you can
+write or call:
+
+        John Querns (Veridian Inc, Veda Operations)
+        Email: jquerns@mbvlab.wpafb.af.mil
+        Phone: (937) 255-1116, Ext. 2818 
+

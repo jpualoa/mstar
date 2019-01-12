@@ -1,0 +1,71 @@
+                                  [MSTAR2JPEG]
+                         (Version 2.0, 24 September 1998)
+
+Program Description:
+
+   This routine allows you to convert the magnitude portion of 
+   MSTAR images to 8-bit JFIF (JPEG) format for DISPLAY purposes.
+   It contains options to automatically enhance the output image
+   (before compression), control the amount of compression, and to
+   operate in quiet or verbose modes. It automatically checks for 
+   and byteswaps the big-endian MSTAR data when needed to support 
+   PC display operations. 
+
+
+Program Usage:
+
+     mstar2jpeg -i <MSTAR File> -o <JPEG File> [-e] -q] qf [-h] [-v]
+
+           Options: [-e]    = Auto-contrast enhance [Def: none]
+                    [-q] qf = Compression quality factor (5-95, Def: 75]
+                    [-h]    = Dump Phoenix (ASCII) header [Def: none]
+                    [-v]    = Verbose mode [Def: Quiet]
+
+
+Description of Arguments:
+
+  REQUIRED:
+           <MSTAR File> -- Input file in MSTAR format
+           <JPEG File > -- Name of output JPEG file
+
+  OPTIONAL:
+           [-e] = Auto-contrast enhance switch
+           [-q] = Compression quality factor switch
+           [-h] = Dump Phoenix header switch 
+           [-v] = Operate in verbose mode switch
+
+
+Files Necessary to Compile:
+
+     * Include : jconfig.h   (Contains JPEG defs.) (
+                 jmorecfg.h  (More JPEG defs.)
+                 jpeglib.h   (JPEG Lib defs.)
+	Note:  The JPEG defs. may not be in the /usr/include/ directory. Modify the mstar2jpeg.c include as nessary.
+	       Include files can also be found in the libtiff-devel and libjpeg-turbo-devel rpms for CentOS/Redhat 6.
+
+     * Library : JPEG libjpeg library 
+                 (You can download latest version via www.jijg.org/files)                  
+
+     * Source  : mstar2jpeg.c
+                 read_switch.c
+
+     * Make    : mstar2jpeg.mk (optional)
+
+
+Compiling and Linking Code:
+
+   You can compile mstar2jpeg either from the command line or by using the 
+   included makefile (note: .mk file).
+
+   a) Command line Method:
+
+        % gcc -c read_switch.c [enter]
+        % gcc -o mstar2jpeg mstar2jpeg.c read_switch.o -ljpeg [enter]
+      
+      NOTE: You can use other C compilers. Edit .mk file as necessary.
+
+   b) Using the Makefile [mstar2jpeg.mk]:
+
+      Perform the following steps:
+
+        % make -f mstar2jpeg.mk       [Creates executable: mstar2jpeg]

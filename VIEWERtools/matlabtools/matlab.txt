@@ -1,0 +1,269 @@
+***************************************************************************
+*                       M A T L A B  V I E W E R S                        *
+***************************************************************************
+*                               matlab.txt                                *
+***************************************************************************
+*                                                                         *
+*        Author: John F. Querns, Veridian Inc., Veda Operations           *
+*          Date: 03 Mar 98                                                *
+*                                                                         *
+***************************************************************************
+* THIS SOFTWARE AND ANY ACCOMPANYING DOCUMENTATION IS RELEASED "AS IS."   *
+* THE U.S. GOVERNMENT MAKES NO WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,  *
+* CONCERNING THIS SOFTWARE AND ANY ACCOMPANYING DOCUMENTATION, INCLUDING, *
+* WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A  *
+* PARTICULAR PURPOSE. IN NO EVENT WILL THE U.S. GOVERNMENT BE LIABLE FOR  *
+* ANY DAMAGES, INCLUDING ANY LOST PROFITS, LOST SAVINGS OR OTHER          *
+* INCIDENTAL OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE, OR INABILITY*
+* TO USE, THIS SOFTWARE OR ANY ACCOMPANYING DOCUMENTATION, EVEN IF        *
+* INFORMED IN ADVANCE OF THE POSSIBILITY OF SUCH DAMAGES."                *
+***************************************************************************
+
+This file describes how to use the MATLAB-based viewer tools for MSTAR 
+target chip images and clutter scenes.  These tools have been tested under
+MATLAB Version 5.1.  The MATLAB M-file tools are distributed in the 
+following UNIX TAR archive:
+
+     mstarviewers.tar    {UNIX TAR archive}
+
+
+***************************************************************************
+
+                          -------------------
+                           TABLE OF CONTENTS
+                          -------------------
+
+                      A.  Extracting tools
+                      B.  Using Target Chip Viewer
+                      C.  Using Clutter Scene Viewer
+                      D.  Miscellaneous Information
+
+                          D1. Logarithmic Scaling
+                          D2. Colormaps
+                          D3. Image enhancement
+
+**************************************************************************
+
+---------------------
+ A. EXTRACTING TOOLS
+---------------------
+
+   The MSTAR viewer tool archive contains code for use with two different
+   software packages:
+
+   xvtools     -- C code to insert into the XV software package (developed
+                  by John Bradley, U of Penn)  that will allow XV to display
+                  MSTAR target chips and full scenes.
+
+   matlabtools -- Matlab M-files that will allow user to display MSTAR   
+                  target chips and clutter scenes in Matlab.
+
+   1) [FOR PC USERS]: 
+
+      % winzip mstarviewers.tar
+
+        NOTE: Use of Winzip Wizard will generate an error stating
+              that the above TAR file is not one of the valid
+              ZIP formats.  However, you can view and extract
+              the contents of this TAR file using Winzip Classic.
+
+              To extract specific files, check Winzip Help.
+
+      [FOR UNIX USERS]:
+
+      [To extract ALL tools]:
+
+        % tar xvf mstarviewers.tar 
+
+      [To extract ONLY Matlab tools]:
+
+        % tar xvf mstarviewers.tar matlabtools [enter]
+
+   2) You should see the following files upon extraction:
+
+      [If ALL tools extracted]:
+
+       readme.txt            --  This file (again)
+
+       xvtools:              --  XV viewer tools directory
+
+           xv.txt            --  XV tools Readme
+           xvmstar.c         --  C file with XV load module
+                                 code for MSTAR files
+
+       matlabtools:          --  MATLAB viewer tools directory
+
+           matlab.txt        --  Matlab tools Readme
+
+           viewchip:         --  Target chip viewer tool directory
+                vwchip.m     --  M-file to display target chips
+                rchplist.m   --  Function called by vwchip.m
+
+           viewclut:         --  Clutter scene viewer tool directory
+                vwclut.m     --  M-file to display clutter scenes
+
+      [If ONLY Matlab tools extracted]:
+
+       matlabtools:          --  MATLAB viewer tools directory
+
+           matlab.txt        --  Matlab tools Readme
+
+           viewchip:         --  Target chip viewer tool directory
+                vwchip.m     --  M-file to display target chips
+                rchplist.m   --  Function called by vwchip.m
+
+           viewclut:         --  Clutter scene viewer tool directory
+                vwclut.m     --  M-file to display clutter scenes
+
+
+-----------------------------
+ B. USING TARGET CHIP VIEWER
+-----------------------------
+
+ 1) Execute matlab
+
+    % matlab [enter]
+
+ 2) Enter name of MSTAR target chip viewer M-file and press enter
+
+    >> vwchip [enter]
+
+ 3) You are first prompted for the type of chip display operation:
+
+    Input type [1=Single chip, 2=List of chips]: {enter 1 or 2}
+
+    If you enter "1":
+
+       You are then prompted for the name of the single chip
+       file you wish to display:
+
+         Name of target chip file: {enter chip name} 
+
+       The chip viewer tool will then proceed to display the 
+       magnitude portion of the MSTAR target chip image.
+
+    If you enter "2":
+
+      You are then prompted for the name of the LIST file 
+      containing the pathnames of the chip image files you wish
+      to display.
+
+        Name of file containing list of target chips: {enter LIST name}
+
+      The chip viewer will produce an output mosaic of the magnitude
+      data for the MSTAR chip images in the list.
+
+         NOTE: The code ASSUMES that the LIST file contains names
+               (or pathnames) of valid MSTAR target chips, one
+               name per line.
+
+   If you enter ANYTHING ELSE:
+      
+      You will provoke a fatal error, making you start all over...
+
+       
+
+
+-------------------------------
+ C. USING CLUTTER SCENE VIEWER 
+-------------------------------
+
+ 1) Execute matlab
+
+    % matlab [enter]
+
+ 2) Enter name of MSTAR clutter scene viewer M-file and press enter
+
+    >> vwclut [enter]
+
+ 3) You will be prompted for the name of the MSTAR clutter scene 
+    you wish to display:
+
+    Enter clutter scene filename: {enter clutter scene name}
+
+ 4) The clutter scene viewer tool will proceed to display the
+    magnitude data portion of the MSTAR clutter scene.
+
+
+
+------------------------------
+ D. MISCELLANEOUS INFORMATION
+------------------------------
+
+  D1. Logarithmic Scaling
+      -------------------
+
+      Some images have a low dynamic range.  That is, they appear
+      dark.  This is especially true of synthetic aperture radar
+      scene.  One technique for increasing the dynamic range of
+      "dark" scenes is to apply a logarithmic transformation to
+      them.
+
+      [vwclut.m]: The MSTAR clutter viewer applies the following
+                  logarithmic transform to the input magnitude
+                  data:
+
+                   output = log10(input + 1)
+
+                  We add "1" to the input before the logarithm
+                  to prevent taking the log of a zero value, 
+                  which is undefined.
+
+      [vwchip.m]: The MSTAR target chip viewer applies a log10
+                  transform ONLY if a list or series of target
+                  chips are displayed.  It follows the same
+                  format as with clutter scenes.
+
+  D2. Colormaps
+      ---------
+
+       Matlab allows you to set the colormap you will use to 
+       display image pixels through use of the "colormap"
+       function:
+
+           colormap(map)  "map" = current figure's colormap
+
+       If you do not specify a colormap, Matlab defaults to
+       the HSV map, which is a non-grayscale map.  The MSTAR
+       target chips and clutter scenes are grayscale images.
+       Thus, both viewers impose a grayscale colormap:
+
+           >> colormap( gray(256) )
+
+               where: "gray(256)" returns a 256x3 grayscale
+                      colormap.
+
+
+
+  D3. Image Enhancement
+      -----------------
+
+      The image viewers use two Matlab functions, "brighten"
+      and "contrast", to enhance the displayed images.
+
+      [BRIGHTEN]: is used to brighten or darken a colormap.
+      Used in its standard form, it brightens or darkens the
+      colormap of the currently displayed image. The format
+      is as shown below:
+
+        >> brighten(B), where: { 0 < B < 1 } --> brightens
+                               {-1 < B < 0 } --> darkens
+       
+      brighten(B) followed by brighten(-B) restores the 
+      original colormap.
+   
+      BRIGHTEN is used by the chip viewer LIST OF CHIPS input
+      option. A +0.3 brighten value is applied.
+
+      BRIGHTEN is also used by the CLUTTER SCENE viewer, 
+      which applies a +0.5 brighten value.
+
+      [CONTRAST]: returns a gray contrast enhancing colormap
+      that is an M-by-3 matrix with 3 identical columns. When
+      applied, it gives images close to a histogram-equalized
+      distribution.  It works best when image colors are 
+      ordered by intensity.
+
+      CONTRAST is used by the chip viewer SINGLE CHIP input
+      option. 
+

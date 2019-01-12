@@ -1,0 +1,47 @@
+
+
+*************************************************************************
+THIS SOFTWARE AND ANY ACCOMPANYING DOCUMENTATION IS RELEASED "AS IS."
+THE U.S. GOVERNMENT MAKES NO WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+CONCERNING THIS SOFTWARE AND ANY ACCOMPANYING DOCUMENTATION, INCLUDING,
+WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A
+PARTICULAR PUPOSE.  IN NO EVENT WILL THE U.S. GOVERNMENT BE LIABLE FOR
+ANY DAMAGES, INCLUDING ANY LOST PROFITS, LOST SAVINGS OR OTHER
+INCIDENTAL OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE, OR INABILITY
+TO USE, THIS SOFTWARE OR ANY ACCOMPANYING DOCUMENTATION, EVEN IF
+INFORMED IN ADVANCE OF THE POSSIBILITY OF SUCH DAMAGES.
+*************************************************************************
+
+* Program Description:
+* 	This program will copy files from the MSTAR distribution set to 
+* disk.  The program has one required argument, the tape drive to read 
+* from, and one optional argument, the datafile that is used to retrieve
+* tape names.
+*
+* The calling sequence is therefore:
+* 	% mstar_extract drive [ -l mstar_datafile ]
+*
+* 	Also, if not specified the MSTAR distribution table of contents
+* file, mstar_datafiles, must be in the current working directory.
+* 	if no tape drive or a non_existing tape drive is specified then
+* the only a list of tapes will be printed.
+*
+* 	After running the program, the program will wait for the user to 
+* enter the filenames to be copied to disk.  The program will read 
+* filenames from stdin until it reads an end-of-file mark (a ^D on UNIX 
+* machines).  This allows for the redirecting of a filenames from a file
+* from It will then dd the files from tape to disk using a block size of 
+* 8192, prompting the user whenever a new tape is needed.
+*
+* 	The program verifies that the file is the proper file by checking 
+* the filename parameter in the summary header.  If this filename does 
+* not match the filename requested, an error is reported.
+
+Note:  In order for the program to work properly, the drive specified in 
+the command line must be the no rewind version.
+
+
+dhascher@mbvlab.wpafb.af.mil
+
+
+

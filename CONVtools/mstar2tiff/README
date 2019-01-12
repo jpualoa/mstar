@@ -1,0 +1,67 @@
+                                  [MSTAR2TIFF]
+                        (Version 2.0, 24 September 1998)
+
+Program Description:
+
+   This routine allows you to convert the magnitude portion of
+   MSTAR images to 8-bit TIFF format for DISPLAY purposes. It
+   contains options to automatically enhance the output image,
+   dump the Phoneix header to an output file, and to operate
+   in verbose or quiet mode. It automatically checks for and
+   byteswaps the big-endian MSTAR data when needed to support 
+   PC display operations.
+
+
+Program Usage:
+
+     mstar2tiff -i <MSTAR File> -o <TIFF File> [-e] [-h] [-v]
+
+           Options: [-e]  = Auto-contrast enhance [Def: none]
+                    [-h]  = Dump Phoenix (ASCII) header [Def: none]
+                    [-v]  = Verbose mode [Def: Quiet]
+
+
+Description of Arguments:
+
+  REQUIRED:
+           <MSTAR File> -- Input file in MSTAR format
+           <TIFF File > -- Name of output TIFF file
+
+  OPTIONAL:
+           [-e] = Auto-contrast enhance switch
+           [-h] = Dump Phoenix header switch
+           [-v] = Operate in verbose mode switch
+
+
+Files Necessary to Compile:
+
+     * Include : tiff.h   (Contains TIFF defs.)
+	Include files can also be found in the libtiff-devel and libjpeg-turbo-devel rpms for CentOS/Redhat 6.
+
+     * Library : TIFF 6.0 libtiff library 
+                 (You can download latest version of library
+                  via http: download.osgeo.org/libtiff)
+
+     * Source  : mstar2tiff.c
+                 read_switch.c
+
+     * Make    : mstar2tiff.mk (optional)
+
+
+Compiling and Linking Code:
+
+   You can compile mstar2tiff either from the command line or by using the 
+   included makefile (note: .mk file).
+
+   a) Command line Method:
+
+        % gcc -c read_switch.c [enter]
+        % gcc -o mstar2tiff mstar2tiff.c read_switch.o -ltiff [enter]
+      
+      NOTE: You can use other C compilers. Edit .mk file as necessary.
+
+   b) Using the Makefile [mstar2tiff.mk]:
+
+      Perform the following steps:
+
+        % make -f mstar2tiff.mk       [Creates executable: mstar2tiff]

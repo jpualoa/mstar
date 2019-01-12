@@ -1,0 +1,106 @@
+This file handles acknowledgments of the use of ideas and/or
+code from other sources as applies to "mstar2jpeg.c":
+
+[libjpeg.a; example.c]: JPEG library and example code provided
+by the Independent JPEG Group (IPG). The following text was
+taken from the README file part of the distribution and is
+what pertains to "mstar2jpeg.c".
+
+
+LEGAL ISSUES
+============
+
+In plain English:
+
+1. We don't promise that this software works.  (But if you find any bugs,
+   please let us know!)
+2. You can use this software for whatever you want.  You don't have to pay us.
+3. You may not pretend that you wrote this software.  If you use it in a
+   program, you must acknowledge somewhere in your documentation that
+   you've used the IJG code.
+
+In legalese:
+
+The authors make NO WARRANTY or representation, either express or implied,
+with respect to this software, its quality, accuracy, merchantability, or
+fitness for a particular purpose.  This software is provided "AS IS", and you,
+its user, assume the entire risk as to its quality and accuracy.
+
+This software is copyright (C) 1991, 1992, 1993, 1994, Thomas G. Lane.
+All Rights Reserved except as specified below.
+
+Permission is hereby granted to use, copy, modify, and distribute this
+software (or portions thereof) for any purpose, without fee, subject to these
+conditions:
+(1) If any part of the source code for this software is distributed, then this
+README file must be included, with this copyright and no-warranty notice
+unaltered; and any additions, deletions, or changes to the original files
+must be clearly indicated in accompanying documentation.
+(2) If only executable code is distributed, then the accompanying
+documentation must state that "this software is based in part on the work of
+the Independent JPEG Group".
+(3) Permission for use of this software is granted only if the user accepts
+full responsibility for any undesirable consequences; the authors accept
+NO LIABILITY for damages of any kind.
+
+These conditions apply to any software derived from or based on the IJG code,
+not just to the unmodified library.  If you use our work, you ought to
+acknowledge us.
+
+Permission is NOT granted for the use of any IJG author's name or company name
+in advertising or publicity relating to this software or products derived from
+it.  This software may be referred to only as "the Independent JPEG Group's
+software".
+
+We specifically permit and encourage the use of this software as the basis of
+commercial products, provided that all warranty or liability claims are
+assumed by the product vendor.
+
+
+
+
+
+[read_switch.c]:  A utility to processes input arguments.  This code was
+                  extracted from 'readswitch.c', a general utility for
+                  extracting different types of arguments. Code is
+                  part of the B-LAB X Interactive Tool Environment
+                  (XITE).
+
+
+________________________________________________________________
+
+        readswitch.c
+        readswitch.c,v 1.26 1995/11/29 11:06:42 svein Exp
+        Copyright 1990, Blab, UiO
+        Image processing lab, Department of Informatics
+        University of Oslo
+        E-mail: blab@ifi.uio.no
+________________________________________________________________
+  
+  Permission to use, copy, modify and distribute this software and its
+  documentation for any purpose and without fee is hereby granted, 
+
+  provided that this copyright notice appear in all copies and that 
+  both that copyright notice and this permission notice appear in supporting
+  documentation and that the name of B-lab, Department of Informatics or
+  University of Oslo not be used in advertising or publicity pertaining 
+  to distribution of the software without specific, written prior permission.
+
+  B-LAB DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING ALL
+  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL B-LAB
+  BE LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+  WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION
+  OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN 
+  CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+ 
+
+
+-----------------------------------------------------------------------------
+
+CheckByteOrder() -- This sub-function is based on code contained in the
+                    book: 
+
+                     Encyclopedia of Graphic File Formats
+                     Murray & Van Ryper, O'Reilly & Associates, Copyright 1994,
+                     pp. 114-115.
+

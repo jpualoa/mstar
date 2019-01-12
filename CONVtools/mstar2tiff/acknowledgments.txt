@@ -1,0 +1,65 @@
+The following are Copyright acknowledgements for code or
+ideas used by ddbspot2tif.c:
+
+[libtiff.a]: TIFF subroutine library that is part of
+             tiff-v3.4.  The following copyright notice
+             applies:
+
+ ===========================================================================
+    Copyright (c) 1988-1996 Sam Leffler
+    Copyright (c) 1991-1996 Silicon Graphics, Inc.
+
+ Permission to use, copy, modify, distribute, and sell this software and 
+ its documentation for any purpose is hereby granted without fee, provided
+ that (i) the above copyright notices and this permission notice appear in
+ all copies of the software and related documentation, and (ii) the names of
+ Sam Leffler and Silicon Graphics may not be used in any advertising or
+ publicity relating to the software without the specific, prior written
+ permission of Sam Leffler and Silicon Graphics.
+
+ THE SOFTWARE IS PROVIDED "AS-IS" AND WITHOUT WARRANTY OF ANY KIND, 
+ EXPRESS, IMPLIED OR OTHERWISE, INCLUDING WITHOUT LIMITATION, ANY 
+ WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  
+
+ IN NO EVENT SHALL SAM LEFFLER OR SILICON GRAPHICS BE LIABLE FOR
+ ANY SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY KIND,
+ OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+ WHETHER OR NOT ADVISED OF THE POSSIBILITY OF DAMAGE, AND ON ANY THEORY OF 
+ LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE 
+ OF THIS SOFTWARE.
+ ===========================================================================
+
+
+[ras2tif.c]:  A Sun Raster to TIFF conversion routine written by Patrick
+              Naughton (Sun Microsystems).
+
+  Author: Patrick J. Naughton
+  naughton@wind.sun.com
+ 
+  Permission to use, copy, modify, and distribute this software and its
+  documentation for any purpose and without fee is hereby granted,
+  provided that the above copyright notice appear in all copies and that
+  both that copyright notice and this permission notice appear in
+  supporting documentation.
+ 
+  This file is provided AS IS with no warranties of any kind.  The author
+  shall have no liability with respect to the infringement of copyrights,
+  trade secrets or any patents by this file or any part thereof.  In no
+  event will the author be liable for any lost revenue or profits or
+  other special, indirect and consequential damages.
+ 
+  Comments and additions should be sent to the author:
+ 
+                     Patrick J. Naughton
+                     Sun Microsystems
+                     2550 Garcia Ave, MS 14-40
+                      Mountain View, CA 94043
+                      (415) 336-1080
+
+
+[CheckByteOrder()]: Checks byte-order of CPU
+
+  Taken from:                    
+                                 
+    Encyclopedia of Graphic File Formats, Murray & Van Ryper,
+    O'Reilly & Associates, 1994, pp. 114-115
