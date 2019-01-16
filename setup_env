@@ -1,0 +1,6 @@
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+MSTAR_PATH="$SCRIPT_DIR/mstar"
+export MSTAR2JPEG_PATH="$SCRIPT_DIR/CONVtools/mstar2jpeg"
+
+# Setup Python
+export PYTHONPATH="$PYTHONPATH:$DIR:$MSTAR_PATH"
