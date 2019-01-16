@@ -197,6 +197,7 @@
 #include <string.h>
 #include <malloc.h>
 #include <math.h>
+#include <sys/unistd.h>
 #include "/usr/include/jpeglib.h"
 
 
@@ -230,7 +231,7 @@ static unsigned short byteswap_SUS_IUS();
 static int            CheckByteOrder();
 
 
-main(argc, argv)
+int main(argc, argv)
 
   int   argc;
   char *argv[];
