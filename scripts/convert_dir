@@ -1,0 +1,49 @@
+#!/usr/bin/env python
+import os
+
+from mstar.mstar2jpeg import convert_file
+
+VALID_TARGETS = ['D7', 'T62', '2S1', 'BRDM_2', 'ZIL131', 'ZSU_23_4', 'BTR_60']
+CONTRAST_ENHANCE = True
+COMPRESSION_QUAL = 75
+DUMP_HEADER = False
+VERBOSE = False
+
+def main(indir):
+    num_found = 0
+    num_converted = 0
+    for dirpath, dirnames, fnames in os.walk(indir):
+        basedir = os.path.basename(dirpath)
+        if basedir not in VALID_TARGETS: continue
+        for f in fnames:
+            if not f.startswith('HB'): continue
+            ext = os.path.splitext(f)[1]
+            if ext in ['.jpg', '.JPG']: continue
+            num_found +=1
+            inpath = os.path.join(dirpath, f)
+            # Add jpg extension to input file
+            #outpath = '.'.join((inpath, '.jpg'))
+            res = convert_file(inpath, CONTRAST_ENHANCE, COMPRESSION_QUAL, DUMP_HEADER, VERBOSE)
+            if res: num_converted +=1
+    print("Converted %d of %d files" % (num_converted, num_found))
+    return
+
+            
+if __name__ == '__main__':
+    import sys
+    indir = sys.argv[1]
+    if not os.path.exists(indir):
+        print("%s does not exist" % indir)
+        exit(0)
+
+    try:
+        main(indir)
+    except KeyboardInterrupt:
+        print("Keyboard interrupt detected...quitting")
+        exit(0)
+    except:
+        import traceback
+        traceback.print_exc()
+        exit(1)
+    else:
+        exit(0)
