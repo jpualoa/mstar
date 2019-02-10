@@ -35,7 +35,7 @@ def convert_file(in_file, output_dir, mag_only=False):
             True: MAG only
             False: MAG+PHASE
     """
-    os.cwd(output_dir)
+    os.chdir(output_dir)
     args = [MSTAR2RAW, in_file, int(mag_only)]
     p = subprocess.Popen(args)
     ret_code = p.wait()
